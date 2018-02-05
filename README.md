@@ -22,6 +22,7 @@ Step 4. Using "aggregat"e function to generate a new dataset with the average of
 
 
 ##########################################
+
 Brief information about the Human Activity Recognition Using Smartphones Dataset (Version 1.0)
 
 created by:
