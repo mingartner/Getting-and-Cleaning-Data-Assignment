@@ -1,2 +1,64 @@
-## This is a blank file to be edited for R-scripts
-This is how to getting and cleaning data
+## Download data zip file then unzip it into a local folder
+
+
+fileUrl = "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+zippath <- paste0(getwd(), "/data/wk4.zip")
+download.file(fileUrl, zippath)
+unzip("./data/wk4.zip", exdir = "./data")
+
+library(dplyr); library(tidyr); library(plyr);
+
+## load files into R studio (features, subject_test, X_test, y_test, subject_train, X_train, y_train)
+
+features <- read.delim("./data/UCI HAR Dataset/features.txt", header = F, stringsAsFactors = F)
+
+test_fp <- "./data/UCI HAR Dataset/test/"
+train_fp <- "./data/UCI HAR Dataset/train/"
+activiy_label <- read.delim("./data/UCI HAR Data")
+
+test_subject <- read.delim(paste0(test_fp, "subject_test.txt"), header = F, stringsAsFactors = F)
+test_label <- read.delim(paste0(test_fp, "y_test.txt"), header = F, stringsAsFactors = F)
+test_results <- read.fwf(paste0(test_fp, "X_test.txt"), widths = rep(16, 561),  stringsAsFactors = FALSE)
+
+train_subject <- read.delim(paste0(train_fp, "subject_train.txt"),  header = F, stringsAsFactors = FALSE)
+train_label <- read.delim(paste0(train_fp, "y_train.txt"),  header = F, stringsAsFactors = FALSE)
+train_results <- read.fwf(paste0(train_fp, "X_train.txt"), widths = rep(16, 561),  stringsAsFactors = FALSE)
+
+## Assign descriptive variable names
+
+splitnames <- strsplit(features[, 1], " ") ## giving a list
+secondelement <- function(x){x[2]} ## create a function to grab the 2nd part of names
+splitednames <- sapply(splitnames, secondelement)  ## generate a clean feature name list
+
+colnames(test_results) <- splitednames; colnames(train_results) <- splitednames
+
+colnames(test_subject) <- "Subject"; colnames(test_label) <- "Activity"
+colnames(train_subject) <- "Subject"; colnames(train_label) <- "Activity"
+
+## merging Test/train data set: subject, activity label and features
+test_data_set <- cbind(test_subject, test_label, test_results)
+train_data_set <- cbind(train_subject, train_label, train_results)
+
+## merging test data set and train data set
+total_data_set <- rbind(test_data_set, train_data_set)
+
+
+## 2. Extracts only the measurements of the mean and std for each measurement
+mean_std_colID <- c(grep("mean", colnames(total_data_set)), grep("std", colnames(total_data_set)))
+mean_std_set <- total_data_set[, c(1:2, mean_std_colID)]
+mean_std_set <- arrange(mean_std_set, mean_std_set$Subject, mean_std_set$Activity)
+
+## 3. Use descriptive activity label columns to name the activities in the data set
+
+key <- c(1, 2, 3, 4, 5, 6)
+val <- c("Walking", "Walking_upstairs", "Walking_downstairs", "Sitting", "Standing", "Laying")
+mean_std_set$Activity <- mapvalues(mean_std_set$Activity, key, val)
+
+
+## 4: Create a second, independent tidy data set with the average of each variable for each activity and each subjet
+
+mean_std_avg <- aggregate.data.frame(mean_std_set_copy[, -c(1, 2)], by = list(mean_std_set_copy$Subject, mean_std_set_copy$Activity), mean)
+names(mean_std_avg)[1:2] <- c("Subject", "Activity")
+
+
+
