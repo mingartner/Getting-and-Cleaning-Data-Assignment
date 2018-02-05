@@ -18,7 +18,7 @@ results. Column names were assigned using data from "features.txt" file.
 
 Step 3. The mean and standard deviation columns were extracted into a new table, then activity names were incorporated into the dataset using "mapvalues" function. 
 
-Step 4. Using "aggregat"e function to generate a new dataset with the average of each variable for each activity and each subject.
+Step 4. Using "aggregate" function to generate a new dataset with the average of each variable for each activity and each subject.
 
 
 ##########################################
