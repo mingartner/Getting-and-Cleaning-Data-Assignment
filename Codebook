@@ -5,7 +5,10 @@ This is a summary about the variable in the SamsungphoneDataset.txt.
 
 Follwed by the average value of the mean and standard derivation that were estimated from the study signals.
 
-3 tBodyAcc-mean()-X
+Units for acceleration signal (acc) is standard units 'g'
+Units for angular velocity vector measured by the gyroscope is radians/second
+
+3 tBodyAcc-mean()-X 
 4 tBodyAcc-mean()-Y
 5 tBodyAcc-mean()-Z
 6 tGravityAcc-mean()-X
