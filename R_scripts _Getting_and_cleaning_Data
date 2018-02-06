@@ -6,7 +6,7 @@ zippath <- paste0(getwd(), "/data/wk4.zip")
 download.file(fileUrl, zippath)
 unzip("./data/wk4.zip", exdir = "./data")
 
-library(dplyr); library(tidyr); library(plyr);
+library(plyr); library(dplyr); library(tidyr); 
 
 ## load files into R studio (features, subject_test, X_test, y_test, subject_train, X_train, y_train)
 
@@ -43,7 +43,7 @@ total_data_set <- rbind(test_data_set, train_data_set)
 
 
 ## 2. Extracts only the measurements of the mean and std for each measurement
-mean_std_colID <- c(grep("mean", colnames(total_data_set)), grep("std", colnames(total_data_set)))
+mean_std_colID <- grep("mean|std", colnames(total_data_set))
 mean_std_set <- total_data_set[, c(1:2, mean_std_colID)]
 mean_std_set <- arrange(mean_std_set, mean_std_set$Subject, mean_std_set$Activity)
 
