@@ -14,7 +14,6 @@ features <- read.delim("./data/UCI HAR Dataset/features.txt", header = F, string
 
 test_fp <- "./data/UCI HAR Dataset/test/"
 train_fp <- "./data/UCI HAR Dataset/train/"
-activiy_label <- read.delim("./data/UCI HAR Data")
 
 test_subject <- read.delim(paste0(test_fp, "subject_test.txt"), header = F, stringsAsFactors = F)
 test_label <- read.delim(paste0(test_fp, "y_test.txt"), header = F, stringsAsFactors = F)
@@ -57,7 +56,7 @@ mean_std_set$Activity <- mapvalues(mean_std_set$Activity, key, val)
 
 ## 4: Create a second, independent tidy data set with the average of each variable for each activity and each subjet
 
-mean_std_avg <- aggregate.data.frame(mean_std_set_copy[, -c(1, 2)], by = list(mean_std_set_copy$Subject, mean_std_set_copy$Activity), mean)
+mean_std_avg <- aggregate.data.frame(mean_std_set[, -c(1, 2)], by = list(mean_std_set$Subject, mean_std_set$Activity), mean)
 names(mean_std_avg)[1:2] <- c("Subject", "Activity")
 
 
