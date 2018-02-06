@@ -12,14 +12,12 @@ The following files was downloaded from project assignment page into local drive
 - 'test/X_test.txt': Test set.
 - 'test/y_test.txt': Test labels.
 
-Step 2. The datasets were loaded into R- studio, using either "read.delim" or "read.fwf" function.  Test data sets (subject, activity label and results) were combined into 1 dataset, 
-followed by combining train data sets into 1 dataset. Then the 2 datasets were combined into 1 data set with all the subjects, activity label and 
-results. Column names were assigned using data from "features.txt" file.
+Step 2. The datasets were loaded into R- studio.  Test data sets (subject, activity label and results) were combined into 1 dataset, 
+followed by combining train data sets into 1 dataset. Then the 2 datasets were combined into 1 data set with all the subjects, activity label and results. Column names were assigned using data from "features.txt" file.
 
 Step 3. The mean and standard deviation columns were extracted into a new table, then activity names were incorporated into the dataset using "mapvalues" function. 
 
 Step 4. Using "aggregate" function to generate a new dataset with the average of each variable for each activity and each subject.
-
 
 ##########################################
 
